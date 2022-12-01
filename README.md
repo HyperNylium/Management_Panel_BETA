@@ -4,6 +4,7 @@
 Beta version: ...<br>
 Live version: ...<br>
 Last updated Github Repo: ...<br>
+Public version: https://github.com/HyperNylium/Management_Panel
 </h3>
 <h4>
 
