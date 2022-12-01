@@ -6,49 +6,54 @@ import platform
 import datetime
 import webbrowser
 import os
-import time
+from time import sleep
 
 try:
 	import speech_recognition as sr
 except:
-	os.system("python -m pip install SpeechRecognition")
-import speech_recognition as sr
+    print("\033[31m" + "\nIt looks like you don't have a critical the python library: speech_recognition\nPlease open the"  +  "\033[36m" + " 'Updater.exe' " + "\033[31m" + "to install all the libraries correctly or open your terminal in administrator mode and type" +  "\033[36m" + ' python -m pip install speech_recognition ' + "\033[31m" + "to install correctly")
+    sleep(8)
+    exit()
 
 try:
 	import wikipedia
 except:
-	os.system("python -m pip install wikipedia")
-import wikipedia
+    print("\033[31m" + "\nIt looks like you don't have a critical the python library: wikipedia\nPlease open the"  +  "\033[36m" + " 'Updater.exe' " + "\033[31m" + "to install all the libraries correctly or open your terminal in administrator mode and type" +  "\033[36m" + ' python -m pip install wikipedia ' + "\033[31m" + "to install correctly")
+    sleep(8)
+    exit()
+
 
 try:
 	import pyjokes
 except:
-	os.system("python -m pip install pyjokes")
-import pyjokes
+    print("\033[31m" + "\nIt looks like you don't have a critical the python library: pyjokes\nPlease open the"  +  "\033[36m" + " 'Updater.exe' " + "\033[31m" + "to install all the libraries correctly or open your terminal in administrator mode and type" +  "\033[36m" + ' python -m pip install pyjokes ' + "\033[31m" + "to install correctly")
+    sleep(8)
+    exit()
+
 
 try:
 	import pyttsx3
 except:
-	os.system("python -m pip install pyttsx3")
-import pyttsx3
+    print("\033[31m" + "\nIt looks like you don't have a critical the python library: pyttsx3\nPlease open the"  +  "\033[36m" + " 'Updater.exe' " + "\033[31m" + "to install all the libraries correctly or open your terminal in administrator mode and type" +  "\033[36m" + ' python -m pip install pyttsx3 ' + "\033[31m" + "to install correctly")
+    sleep(8)
+    exit()
+
 
 try:
 	import pyaudio
 except:
-	os.system("python -m pip install pyaudio")
-import pyaudio
+    print("\033[31m" + "\nIt looks like you don't have a critical the python library: pyaudio\nPlease open the"  +  "\033[36m" + " 'Updater.exe' " + "\033[31m" + "to install all the libraries correctly or open your terminal in administrator mode and type" +  "\033[36m" + ' python -m pip install pyaudio ' + "\033[31m" + "to install correctly")
+    sleep(8)
+    exit()
+
 
 try:
 	import plyer
 except:
-	os.system("python -m pip install plyer")
-import plyer
+    print("\033[31m" + "\nIt looks like you don't have a critical the python library: plyer\nPlease open the"  +  "\033[36m" + " 'Updater.exe' " + "\033[31m" + "to install all the libraries correctly or open your terminal in administrator mode and type" +  "\033[36m" + ' python -m pip install plyer ' + "\033[31m" + "to install correctly")
+    sleep(8)
+    exit()
 
-try:
-	from colorama import *
-except:
-	os.system("python -m pip install colorama")
-from colorama import *
 
 ###~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
 ###
@@ -111,11 +116,11 @@ def takeCommand():
         print(CLR_YELLOW + "  Recognizing..." + RESET_ALL)
         query = r.recognize_google(audio, language="en")
         print(f"\n  command: {query}\n")
-        time.sleep(0.5)
+        sleep(0.5)
 
     except Exception as e:
         print("    Say that again please...")
-        time.sleep(0.5)
+        sleep(0.5)
         return "None"
     return query
 
@@ -151,6 +156,7 @@ def JARVIS():
 
             elif "jarvis open github" in query:
                 webbrowser.open(GithubURL)
+                speak("opened github")
 
             elif "jarvis open instagram" in query:
                 webbrowser.open(instagramURL)
@@ -183,7 +189,7 @@ def JARVIS():
 
             elif "jarvis play music" in query:
                 speak("Checking your personal music directory")
-                time.sleep(1)
+                sleep(1)
                 ListMusicDir = os.listdir(UserMusicDirectory)
                 speak("Detected music directory")
                 os.system(clear_command)
@@ -222,7 +228,7 @@ def JARVIS():
                         os.system(clear_command)
                         print(CLR_RED + "\n  That file doesn't exist in your directory. please try again" + RESET_ALL)
                         speak("That file doesn't exist in your directory. please try again")
-                        time.sleep(1)
+                        sleep(1)
                         MusicDirFunc()
                 MusicDirFunc()
 
@@ -252,7 +258,7 @@ def JARVIS():
                 print(CLR_GREEN + "     | " + RESET_ALL + CLR_CYAN + "    open management panel                     " + RESET_ALL + CLR_GREEN + " |   " + RESET_ALL + CLR_YELLOW + "Closes Jarvis and opens management panel" + RESET_ALL + CLR_GREEN + " | " + RESET_ALL)
                 print(CLR_GREEN + "     +------------------------------------------------+--------------------------------------------+" + RESET_ALL)
                 speak("these are my commands. when you say either of these, i will respond to you with an answer")
-                time.sleep(5)
+                sleep(5)
 
             elif "jarvis help" in query:
                 os.system(clear_command)
@@ -274,11 +280,11 @@ def JARVIS():
                 print(CLR_GREEN + "     | " + RESET_ALL + CLR_CYAN + "    open management panel                     " + RESET_ALL + CLR_GREEN + " |   " + RESET_ALL + CLR_YELLOW + "Closes Jarvis and opens management panel" + RESET_ALL + CLR_GREEN + " | " + RESET_ALL)
                 print(CLR_GREEN + "     +------------------------------------------------+--------------------------------------------+" + RESET_ALL)
                 speak("these are my commands. when you say either of these, i will respond to you with an answer")
-                time.sleep(5)
+                sleep(5)
 
             elif "jarvis update software" in query:
                 speak("Attempting to update software")
-                time.sleep(0.6)
+                sleep(0.6)
                 speak("Opening software update tool")
                 os.startfile("Updater.exe")
                 exit()
@@ -286,7 +292,7 @@ def JARVIS():
             elif "jarvis open management panel" in query:
                 speak(f"Attempting to open management panel project version {App_Version}")
                 print(CLR_YELLOW, f"Attempting to open Management Panel project version {App_Version}", RESET_ALL)
-                time.sleep(1)
+                sleep(1)
                 os.startfile("Management_Panel.py")
                 exit()
 
@@ -295,29 +301,29 @@ def JARVIS():
                 if hour>=0 and hour<12:
                     print(CLR_RED , "\n  Shuting Down. Have a good Morning sir", RESET_ALL)
                     speak("Shut ing Down. Have a good Morning sir")
-                    time.sleep(1)
+                    sleep(1)
                     exit()
 
                 elif hour>=12 and hour<18:
                     print(CLR_RED, "\n  Shuting Down. have a good afternoon sir", RESET_ALL)
                     speak("Shut ing Down. have a good afternoon sir")
-                    time.sleep(1)
+                    sleep(1)
                     exit()
 
                 else:
                     print(CLR_RED , "\n  Shuting Down. have a good evening sir", RESET_ALL)
                     speak("Shut ing Down. have a good evening sir")
-                    time.sleep(1)
+                    sleep(1)
                     exit()
 
             elif "jarvis lock my computer" in query:
                 print(CLR_YELLOW + "\n  Locking your workstation sir. Have a wonderful day" + RESET_ALL)
                 speak("Locking your workstation sir. Have a wonderful day")
-                time.sleep(1)
+                sleep(1)
                 os.system('cmd /c "rundll32.exe user32.dll,LockWorkStation"')
-                time.sleep(1)
+                sleep(1)
                 plyer.notification.notify("Jarvis", "Your workstation has been locked.\nUntill next time sir", timeout=5)
-                time.sleep(1)
+                sleep(1)
                 exit()
 
 
