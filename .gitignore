@@ -2,12 +2,12 @@
 *
 !.gitignore
 !.gitattributes
-!jarvis.py
-!Management_Panel.py
-!README.md
-!requirements.txt
-!Updater.exe
-!YT_Downloader.py
-!MP_MINI.py
-!/Assets
-!/Assets/*
+# !jarvis.py
+# !Management_Panel.py
+# !README.md
+# !requirements.txt
+# !Updater.exe
+# !YT_Downloader.py
+# !MP_MINI.py
+# !/Assets
+# !/Assets/*
