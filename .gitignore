@@ -3,7 +3,7 @@
 !.gitignore
 !.gitattributes
 # !jarvis.py
-# !Management_Panel.py
+!Management_Panel.py
 # !README.md
 # !requirements.txt
 # !Updater.exe
