@@ -192,8 +192,8 @@ class App(CTk):
         self.navigation_frame_label = CTkLabel(self.navigation_frame, text="Management Panel", compound="left", font=Font(size=20, weight="bold"))
         self.navigation_frame_label.grid(row=0, column=0, padx=20, pady=20)
 
-        self.home_button = CTkButton(self.navigation_frame, corner_radius=0, height=40, border_spacing=10, text="Home", fg_color="transparent", text_color=("gray10", "gray90"), font=("Arial", 22), hover_color=("gray70", "gray30"), anchor="w", command=self.home_button_event)
-        self.home_button.grid(row=1, column=0, sticky="ew")
+        self.welcome_button = CTkButton(self.navigation_frame, corner_radius=0, height=40, border_spacing=10, text="Welcome", fg_color="transparent", text_color=("gray10", "gray90"), font=("Arial", 22), hover_color=("gray70", "gray30"), anchor="w", command=self.welcome_button_event)
+        self.welcome_button.grid(row=1, column=0, sticky="ew")
 
         self.apps_button = CTkButton(self.navigation_frame, corner_radius=0, height=40, border_spacing=10, text="Apps", fg_color="transparent", text_color=("gray10", "gray90"), font=("Arial", 22),hover_color=("gray70", "gray30"), anchor="w", command=self.apps_button_event)
         self.apps_button.grid(row=2, column=0, sticky="ew")
@@ -205,8 +205,8 @@ class App(CTk):
         self.about_button.grid(row=4, column=0, sticky="ew")
 
         # create frames
-        self.home_frame = CTkFrame(self, corner_radius=0, fg_color="transparent")
-        self.home_frame.grid_columnconfigure(0, weight=1)
+        self.welcome_frame = CTkFrame(self, corner_radius=0, fg_color="transparent")
+        self.welcome_frame.grid_columnconfigure(0, weight=1)
 
         self.apps_frame = CTkFrame(self, corner_radius=0, fg_color="transparent")
         self.apps_frame.grid_columnconfigure(0, weight=1)
@@ -219,14 +219,20 @@ class App(CTk):
 
 
         # Create elements for frames
-        self.home_frame_button_1 = CTkButton(self.home_frame, text="CTkButton", compound="top")
-        self.home_frame_button_1.grid(row=3, column=1, padx=100, pady=10)
+        self.welcome_frame_button_1 = CTkLabel(self.welcome_frame, text="Welcome", font=Font(size=50, weight="bold"))
+        self.welcome_frame_button_1.grid(row=1, column=1, padx=220, pady=50)
 
-        self.home_frame_button_2 = CTkButton(self.home_frame, text="CTkButton", compound="top")
-        self.home_frame_button_2.grid(row=3, column=2, padx=20, pady=10)
+        self.welcome_frame_button_1 = CTkLabel(self.welcome_frame, text="Click one of the buttons on the side to get started", font=Font(size=20, weight="bold"))
+        self.welcome_frame_button_1.grid(row=2, column=1, padx=0, pady=0)
 
-        self.apps_frame_button_1 = CTkButton(self.apps_frame, text="CTkButto", compound="top")
-        self.apps_frame_button_1.grid(row=3, column=0, padx=20, pady=10)
+        self.spacer = CTkLabel(self.apps_frame, text="")
+        self.spacer.grid(row=1, column=0, padx=70, pady=50)
+
+        self.apps_frame_button_1 = CTkButton(self.apps_frame, text="YT Downloader", compound="top", font=Font(size=20))
+        self.apps_frame_button_1.grid(row=1, column=1, padx=20, pady=10)
+
+        self.apps_frame_button_2 = CTkButton(self.apps_frame, text="J.A.R.V.I.S", compound="top")
+        self.apps_frame_button_2.grid(row=1, column=2, padx=20, pady=10)
 
         self.games_frame_button_1 = CTkButton(self.games_frame, text="CTkButt", compound="top")
         self.games_frame_button_1.grid(row=3, column=0, padx=20, pady=10)
@@ -235,20 +241,20 @@ class App(CTk):
         self.about_frame_button_1.grid(row=3, column=0, padx=20, pady=10)
 
         # select default frame
-        self.select_frame_by_name("Home")
+        self.select_frame_by_name("Welcome")
 
     def select_frame_by_name(self, name):
         # set button color for selected button
-        self.home_button.configure(fg_color=("gray75", "gray25") if name == "Home" else "transparent")
+        self.welcome_button.configure(fg_color=("gray75", "gray25") if name == "Welcome" else "transparent")
         self.apps_button.configure(fg_color=("gray75", "gray25") if name == "Apps" else "transparent")
         self.games_button.configure(fg_color=("gray75", "gray25") if name == "Games" else "transparent")
         self.about_button.configure(fg_color=("gray75", "gray25") if name == "About" else "transparent")
 
         # show selected frame
-        if name == "Home":
-            self.home_frame.grid(row=0, column=1, sticky="nsew")
+        if name == "Welcome":
+            self.welcome_frame.grid(row=0, column=1, sticky="nsew")
         else:
-            self.home_frame.grid_forget()
+            self.welcome_frame.grid_forget()
 
         if name == "Apps":
             self.apps_frame.grid(row=0, column=1, sticky="nsew")
@@ -265,8 +271,8 @@ class App(CTk):
         else:
             self.about_frame.grid_forget()
 
-    def home_button_event(self):
-        self.select_frame_by_name("Home")
+    def welcome_button_event(self):
+        self.select_frame_by_name("Welcome")
     def apps_button_event(self):
         self.select_frame_by_name("Apps")
     def games_button_event(self):
