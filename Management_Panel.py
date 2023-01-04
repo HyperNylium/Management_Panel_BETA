@@ -192,21 +192,21 @@ class App(CTk):
         self.navigation_frame_label = CTkLabel(self.navigation_frame, text="Management Panel", compound="left", font=Font(size=20, weight="bold"))
         self.navigation_frame_label.grid(row=0, column=0, padx=20, pady=20)
 
-        self.welcome_button = CTkButton(self.navigation_frame, corner_radius=0, height=40, border_spacing=10, text="Welcome", fg_color="transparent", text_color=("gray10", "gray90"), font=("Arial", 22), hover_color=("gray70", "gray30"), anchor="w", command=self.welcome_button_event)
-        self.welcome_button.grid(row=1, column=0, sticky="ew")
+        self.about_button = CTkButton(self.navigation_frame, corner_radius=0, height=40, text="About", fg_color="transparent", text_color=("gray10", "gray90"), font=("Arial", 22), hover_color=("gray70", "gray30"), anchor="w", command=self.about_button_event)
+        self.about_button.grid(row=1, column=0, sticky="ew")
 
-        self.apps_button = CTkButton(self.navigation_frame, corner_radius=0, height=40, border_spacing=10, text="Apps", fg_color="transparent", text_color=("gray10", "gray90"), font=("Arial", 22),hover_color=("gray70", "gray30"), anchor="w", command=self.apps_button_event)
+        self.apps_button = CTkButton(self.navigation_frame, corner_radius=0, height=40, text="Apps", fg_color="transparent", text_color=("gray10", "gray90"), font=("Arial", 22),hover_color=("gray70", "gray30"), anchor="w", command=self.apps_button_event)
         self.apps_button.grid(row=2, column=0, sticky="ew")
 
-        self.games_button = CTkButton(self.navigation_frame, corner_radius=0, height=40, border_spacing=10, text="Games", fg_color="transparent", text_color=("gray10", "gray90"), font=("Arial", 22), hover_color=("gray70", "gray30"), anchor="w", command=self.games_button_event)
+        self.games_button = CTkButton(self.navigation_frame, corner_radius=0, height=40, text="Games", fg_color="transparent", text_color=("gray10", "gray90"), font=("Arial", 22), hover_color=("gray70", "gray30"), anchor="w", command=self.games_button_event)
         self.games_button.grid(row=3, column=0, sticky="ew")
 
-        self.about_button = CTkButton(self.navigation_frame, corner_radius=0, height=40, border_spacing=10, text="About", fg_color="transparent", text_color=("gray10", "gray90"), font=("Arial", 22), hover_color=("gray70", "gray30"), anchor="w", command=self.about_button_event)
-        self.about_button.grid(row=4, column=0, sticky="ew")
+        self.system_button = CTkButton(self.navigation_frame, corner_radius=0, height=40, text="System", fg_color="transparent", text_color=("gray10", "gray90"), font=("Arial", 22), hover_color=("gray70", "gray30"), anchor="w", command=self.system_button_event)
+        self.system_button.grid(row=4, column=0, sticky="ew")
 
         # create frames
-        self.welcome_frame = CTkFrame(self, corner_radius=0, fg_color="transparent")
-        self.welcome_frame.grid_columnconfigure(0, weight=1)
+        self.about_frame = CTkFrame(self, corner_radius=0, fg_color="transparent")
+        self.about_frame.grid_columnconfigure(0, weight=1)
 
         self.apps_frame = CTkFrame(self, corner_radius=0, fg_color="transparent")
         self.apps_frame.grid_columnconfigure(0, weight=1)
@@ -214,47 +214,49 @@ class App(CTk):
         self.games_frame = CTkFrame(self, corner_radius=0, fg_color="transparent")
         self.games_frame.grid_columnconfigure(0, weight=1)
 
-        self.about_frame = CTkFrame(self, corner_radius=0, fg_color="transparent")
-        self.about_frame.grid_columnconfigure(0, weight=1)
+        self.system_frame = CTkFrame(self, corner_radius=0, fg_color="transparent")
+        self.system_frame.grid_columnconfigure(0, weight=1)
 
 
         # Create elements for frames
-        self.welcome_frame_button_1 = CTkLabel(self.welcome_frame, text="Welcome", font=Font(size=50, weight="bold"))
-        self.welcome_frame_button_1.grid(row=1, column=1, padx=220, pady=50)
+        self.about_frame_button_1 = CTkLabel(self.about_frame, text="About", font=Font(size=50, weight="bold"))
+        self.about_frame_button_1.grid(row=1, column=1, padx=260, pady=50)
 
-        self.welcome_frame_button_1 = CTkLabel(self.welcome_frame, text="Click one of the buttons on the side to get started", font=Font(size=20, weight="bold"))
-        self.welcome_frame_button_1.grid(row=2, column=1, padx=0, pady=0)
+        self.about_frame_button_2 = CTkLabel(self.about_frame, text="Version: ", font=Font(size=28))
+        self.about_frame_button_2.grid(row=2, column=1, padx=0, pady=0)
 
-        self.spacer = CTkLabel(self.apps_frame, text="")
-        self.spacer.grid(row=1, column=0, padx=70, pady=50)
+        self.about_frame_button_3 = CTkLabel(self.about_frame, text="Last updated: ", font=Font(size=28))
+        self.about_frame_button_3.grid(row=3, column=1, padx=0, pady=10)
 
-        self.apps_frame_button_1 = CTkButton(self.apps_frame, text="YT Downloader", compound="top", font=Font(size=20))
+        self.about_frame_button_4 = CTkLabel(self.about_frame, text="Creator/developer : ", font=Font(size=28))
+        self.about_frame_button_4.grid(row=4, column=1, padx=0, pady=0)
+
+        self.appsspacer = CTkLabel(self.apps_frame, text="")
+        self.appsspacer.grid(row=1, column=0, padx=70, pady=100)
+
+        self.apps_frame_button_1 = CTkButton(self.apps_frame, text="YT Downloader", compound="top", fg_color=("gray75", "gray30"), font=("sans-serif", 22), corner_radius=10, command=None)
         self.apps_frame_button_1.grid(row=1, column=1, padx=20, pady=10)
 
-        self.apps_frame_button_2 = CTkButton(self.apps_frame, text="J.A.R.V.I.S", compound="top")
+        self.apps_frame_button_2 = CTkButton(self.apps_frame, text="J.A.R.V.I.S", compound="top", fg_color=("gray75", "gray30"), font=("sans-serif", 22), corner_radius=10, command=None)
         self.apps_frame_button_2.grid(row=1, column=2, padx=20, pady=10)
 
         self.games_frame_button_1 = CTkButton(self.games_frame, text="CTkButt", compound="top")
         self.games_frame_button_1.grid(row=3, column=0, padx=20, pady=10)
 
-        self.about_frame_button_1 = CTkButton(self.about_frame, text="CTkBut", compound="top")
-        self.about_frame_button_1.grid(row=3, column=0, padx=20, pady=10)
-
         # select default frame
-        self.select_frame_by_name("Welcome")
+        self.select_frame_by_name("About")
 
     def select_frame_by_name(self, name):
         # set button color for selected button
-        self.welcome_button.configure(fg_color=("gray75", "gray25") if name == "Welcome" else "transparent")
+        self.about_button.configure(fg_color=("gray75", "gray25") if name == "About" else "transparent")
         self.apps_button.configure(fg_color=("gray75", "gray25") if name == "Apps" else "transparent")
         self.games_button.configure(fg_color=("gray75", "gray25") if name == "Games" else "transparent")
-        self.about_button.configure(fg_color=("gray75", "gray25") if name == "About" else "transparent")
 
         # show selected frame
-        if name == "Welcome":
-            self.welcome_frame.grid(row=0, column=1, sticky="nsew")
+        if name == "About":
+            self.about_frame.grid(row=0, column=1, sticky="nsew")
         else:
-            self.welcome_frame.grid_forget()
+            self.about_frame.grid_forget()
 
         if name == "Apps":
             self.apps_frame.grid(row=0, column=1, sticky="nsew")
@@ -265,20 +267,20 @@ class App(CTk):
             self.games_frame.grid(row=0, column=1, sticky="nsew")
         else:
             self.games_frame.grid_forget()
-
-        if name == "About":
-            self.about_frame.grid(row=0, column=1, sticky="nsew")
+        if name == "System":
+            self.system_frame.grid(row=0, column=1, sticky="nsew")
         else:
-            self.about_frame.grid_forget()
+            self.system_frame.grid_forget()
 
-    def welcome_button_event(self):
-        self.select_frame_by_name("Welcome")
     def apps_button_event(self):
         self.select_frame_by_name("Apps")
     def games_button_event(self):
         self.select_frame_by_name("Games")
     def about_button_event(self):
         self.select_frame_by_name("About")
+    def system_button_event(self):
+        self.select_frame_by_name("System")
+
     def PowerSettings(self):
         system("cmd /c control powercfg.cpl")
     def DisplaySettings(self):
