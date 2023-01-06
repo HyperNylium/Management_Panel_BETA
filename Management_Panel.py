@@ -124,52 +124,59 @@ Game_6 = "com.epicgames.launcher://apps/calluna%3A9afb582e90b74bdd9e2146fb79c785
 Game_7 = "steam://rungameid/271590"
 Game_8 = "steam://rungameid/236390"
 
+try:
+    print(CLR_YELLOW + "\n  Checking for updates" + RESET_ALL)
+    response = get(DataTXTFileUrl)
+    lines = response.text.split('\n')
+    delimeter = "="
 
-print(CLR_YELLOW + "\n  Checking for updates" + RESET_ALL)
-response = get(DataTXTFileUrl)
+    def findValue(fullString):
+        fullString = fullString.rstrip("\n")
+        value = fullString[fullString.index(delimeter)+1:]
+        value = value.replace(" ","")
+        return value
 
-lines = response.text.split('\n')
+    for line in lines:
+        if line.startswith("Version"):
+            App_Version = findValue(line).strip()
+        if line.startswith("DevName"):
+            Developer = findValue(line).strip()
+        if line.startswith("Developer_Lowercase"):
+            Developer_Lowercase = findValue(line)
+        if line.startswith("LastEditDate"):
+            LastEditDate = findValue(line).strip()
+        if line.startswith("LatestVersionPythonLink"):
+            LatestVersionPythonLink = findValue(line).strip()
+        if line.startswith("LatestVersionPythonFileName"):
+            LatestVersionPythonFileName = findValue(line).strip()
+        if line.startswith("LatestVersionProjectLink"):
+            LatestVersionProjectLink = findValue(line).strip()
 
-delimeter = "="
-
-def findValue(fullString):
-    fullString = fullString.rstrip("\n")
-    value = fullString[fullString.index(delimeter)+1:]
-    value = value.replace(" ","")
-    return value
-
-for line in lines:
-    if line.startswith("Version"):
-        App_Version = findValue(line).strip()
-    if line.startswith("DevName"):
-        Developer = findValue(line).strip()
-    if line.startswith("Developer_Lowercase"):
-        Developer_Lowercase = findValue(line)
-    if line.startswith("LastEditDate"):
-        LastEditDate = findValue(line).strip()
-    if line.startswith("LatestVersionPythonLink"):
-        LatestVersionPythonLink = findValue(line).strip()
-    if line.startswith("LatestVersionPythonFileName"):
-        LatestVersionPythonFileName = findValue(line).strip()
-    if line.startswith("LatestVersionProjectLink"):
-        LatestVersionProjectLink = findValue(line).strip()
-
-if App_Version < CurrentAppVersion:
-        print(CLR_RED + f"\n  You have an invalid copy/version of this software. Use at your own risk!\n\n  Live/Public version: {App_Version}\n  Current version: {CurrentAppVersion}\n\n  Please go to http://search.hypernylium.com/results/ServerFileManager/ to get the latest/authentic version of this software")
-        sleep(7)
-        exit()
-elif App_Version != CurrentAppVersion or App_Version > CurrentAppVersion:
-        print(CLR_RED + f"\n  New version found!" + RESET_ALL)
-        output = confirm(title='New Version!', text=f'New Version is v{App_Version}\nYour Version is v{CurrentAppVersion}\n\nNew Version of the app is now available to download/install\nClick "OK" to update and "Cancel" to cancel')
-        if (output == "OK"):
-            WBopen(UpdateLink)
+    if App_Version < CurrentAppVersion:
+            print(CLR_RED + f"\n  You have an invalid copy/version of this software. Use at your own risk!\n\n  Live/Public version: {App_Version}\n  Current version: {CurrentAppVersion}\n\n  Please go to http://search.hypernylium.com/results/ServerFileManager/ to get the latest/authentic version of this software")
+            sleep(7)
             exit()
-        else:
-            exit()
-else:
-    print(CLR_GREEN + f"\n  {App_Version} is the latest version. Continuing on with launch protocol" + RESET_ALL)
+    elif App_Version != CurrentAppVersion or App_Version > CurrentAppVersion:
+            print(CLR_RED + f"\n  New version found!" + RESET_ALL)
+            output = confirm(title='New Version!', text=f'New Version is v{App_Version}\nYour Version is v{CurrentAppVersion}\n\nNew Version of the app is now available to download/install\nClick "OK" to update and "Cancel" to cancel')
+            if (output == "OK"):
+                WBopen(UpdateLink)
+                exit()
+            else:
+                exit()
+    else:
+        print(CLR_GREEN + f"\n  {App_Version} is the latest version. Continuing on with launch protocol" + RESET_ALL)
+        pass
+except:
+    print(CLR_RED + f"\n  Receiving app information was unable to execute successfully!\n  Passing 'N/A' in all variables" + RESET_ALL)
+    App_Version = "N/A"
+    Developer = "N/A"
+    Developer_Lowercase = "N/A"
+    LastEditDate = "N/A"
+    LatestVersionPythonLink = "N/A"
+    LatestVersionPythonFileName = "N/A"
+    LatestVersionProjectLink = "N/A"
     pass
-
 
 class App(CTk):
     def __init__(self):
@@ -187,21 +194,21 @@ class App(CTk):
         # create navigation frame
         self.navigation_frame = CTkFrame(self, corner_radius=0)
         self.navigation_frame.grid(row=0, column=0, sticky="nsew")
-        self.navigation_frame.grid_rowconfigure(20, weight=1)
+        self.navigation_frame.grid_rowconfigure(8, weight=1)
 
         self.navigation_frame_label = CTkLabel(self.navigation_frame, text="Management Panel", compound="left", font=Font(size=20, weight="bold"))
         self.navigation_frame_label.grid(row=0, column=0, padx=20, pady=20)
 
-        self.about_button = CTkButton(self.navigation_frame, corner_radius=0, height=40, text="About", fg_color="transparent", text_color=("gray10", "gray90"), font=("Arial", 22), hover_color=("gray70", "gray30"), anchor="w", command=self.about_button_event)
+        self.about_button = CTkButton(self.navigation_frame, corner_radius=0, height=40, text="About", fg_color="transparent", text_color=("gray10", "gray90"), font=("Arial", 22), hover_color=("gray70", "gray30"), command=self.about_button_event)
         self.about_button.grid(row=1, column=0, sticky="ew")
 
-        self.apps_button = CTkButton(self.navigation_frame, corner_radius=0, height=40, text="Apps", fg_color="transparent", text_color=("gray10", "gray90"), font=("Arial", 22),hover_color=("gray70", "gray30"), anchor="w", command=self.apps_button_event)
+        self.apps_button = CTkButton(self.navigation_frame, corner_radius=0, height=40, text="Apps", fg_color="transparent", text_color=("gray10", "gray90"), font=("Arial", 22),hover_color=("gray70", "gray30"), command=self.apps_button_event)
         self.apps_button.grid(row=2, column=0, sticky="ew")
 
-        self.games_button = CTkButton(self.navigation_frame, corner_radius=0, height=40, text="Games", fg_color="transparent", text_color=("gray10", "gray90"), font=("Arial", 22), hover_color=("gray70", "gray30"), anchor="w", command=self.games_button_event)
+        self.games_button = CTkButton(self.navigation_frame, corner_radius=0, height=40, text="Games", fg_color="transparent", text_color=("gray10", "gray90"), font=("Arial", 22), hover_color=("gray70", "gray30"), command=self.games_button_event)
         self.games_button.grid(row=3, column=0, sticky="ew")
 
-        self.system_button = CTkButton(self.navigation_frame, corner_radius=0, height=40, text="System", fg_color="transparent", text_color=("gray10", "gray90"), font=("Arial", 22), hover_color=("gray70", "gray30"), anchor="w", command=self.system_button_event)
+        self.system_button = CTkButton(self.navigation_frame, corner_radius=0, height=40, text="System", fg_color="transparent", text_color=("gray10", "gray90"), font=("Arial", 22), hover_color=("gray70", "gray30"), command=self.system_button_event)
         self.system_button.grid(row=4, column=0, sticky="ew")
 
         # create frames
@@ -222,13 +229,13 @@ class App(CTk):
         self.about_frame_button_1 = CTkLabel(self.about_frame, text="About", font=Font(size=50, weight="bold"))
         self.about_frame_button_1.grid(row=1, column=1, padx=260, pady=50)
 
-        self.about_frame_button_2 = CTkLabel(self.about_frame, text="Version: ", font=Font(size=28))
+        self.about_frame_button_2 = CTkLabel(self.about_frame, text=f"Version: {App_Version}", font=Font(size=28))
         self.about_frame_button_2.grid(row=2, column=1, padx=0, pady=0)
 
-        self.about_frame_button_3 = CTkLabel(self.about_frame, text="Last updated: ", font=Font(size=28))
+        self.about_frame_button_3 = CTkLabel(self.about_frame, text=f"Last updated: {LastEditDate}", font=Font(size=28))
         self.about_frame_button_3.grid(row=3, column=1, padx=0, pady=10)
 
-        self.about_frame_button_4 = CTkLabel(self.about_frame, text="Creator/developer : ", font=Font(size=28))
+        self.about_frame_button_4 = CTkLabel(self.about_frame, text=f"Creator/developer: {Developer}", font=Font(size=28))
         self.about_frame_button_4.grid(row=4, column=1, padx=0, pady=0)
 
         self.appsspacer = CTkLabel(self.apps_frame, text="")
@@ -239,9 +246,6 @@ class App(CTk):
 
         self.apps_frame_button_2 = CTkButton(self.apps_frame, text="J.A.R.V.I.S", compound="top", fg_color=("gray75", "gray30"), font=("sans-serif", 22), corner_radius=10, command=None)
         self.apps_frame_button_2.grid(row=1, column=2, padx=20, pady=10)
-
-        self.games_frame_button_1 = CTkButton(self.games_frame, text="CTkButt", compound="top")
-        self.games_frame_button_1.grid(row=3, column=0, padx=20, pady=10)
 
         # select default frame
         self.select_frame_by_name("About")
